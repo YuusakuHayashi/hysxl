@@ -35,3 +35,14 @@ Sub Main(folder, ex)
     Call hysDebugger.Logger("export = ", exp_cnt)
     Call hysDebugger.Logger("exporter end")
 End Sub
+
+Function checkExclude(module As String, list) As Boolean
+    Dim i As Integer
+    For i = LBound(list) To UBound(list)
+        If module = list(i) Then
+            checkExclude = True
+            Exit Function
+        End If
+    Next
+    checkExclude = False
+End Function

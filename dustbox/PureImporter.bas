@@ -1,8 +1,13 @@
 Attribute VB_Name = "PureImporter"
 Option Explicit
+Dim IMPORT_RESERVATION_PATH As String
+Dim MODULE_PATH As String
 
 Sub Main()
-
+    
+    MODULE_PATH = ThisWorkbook.PATH & "\reserved"
+    IMPORT_RESERVATION_PATH = MODULE_PATH
+    
     Dim fso As Object
     Dim fs As Object
     Dim f As Object

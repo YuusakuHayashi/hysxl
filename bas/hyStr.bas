@@ -22,10 +22,3 @@ Function removeElementOfList(el As String, list() As String)
     removeElementOfList = list
     
 End Function
-
-Function getBaseName(mdl As String)
-    Dim fso As Object
-    Set fso = CreateObject("Scripting.FileSystemObject")
-    getBaseName = fso.getBaseName(mdl)
-    Set fso = Nothing
-End Function

@@ -5,6 +5,7 @@ Dim IMPORT_EXCLUSION_PATH As String
 Dim DUSTBOX_PATH As String
 Dim IMPORT_EXCLUSION_LIST As Variant
 Dim IMPORT_RESERVATION_PATH As String
+Dim MODULE_PATH As String
 
 '覚書
 '一つのサブルーチンでしか使用しないAPIをわざわざ関数化しない
@@ -12,11 +13,12 @@ Dim IMPORT_RESERVATION_PATH As String
 '汎用のモジュール内の各関数は、他モジュールの関数を呼び出さない
 
 Sub Bundler()
-    TARGET_PATH = ThisWorkbook.PATH & "\bas"
-    IMPORT_EXCLUSION_PATH = ThisWorkbook.PATH & "\import_exclude"
-    DUSTBOX_PATH = ThisWorkbook.PATH & "\dustbox"
-    IMPORT_EXCLUSION_LIST = Array("Importer.bas")
-    IMPORT_RESERVATION_PATH = ThisWorkbook.PATH & "\reserved"
+    MODULE_PATH = ThisWorkbook.PATH
+    TARGET_PATH = MODULE_PATH & "\bas"
+    IMPORT_EXCLUSION_PATH = MODULE_PATH & "\import_exclude"
+    DUSTBOX_PATH = MODULE_PATH & "\dustbox"
+    IMPORT_EXCLUSION_LIST = Array("Importer.bas", "PureImporter.bas")
+    IMPORT_RESERVATION_PATH = MODULE_PATH & "\reserved"
     
     Call hysFolderer.Migrater(IMPORT_RESERVATION_PATH, DUSTBOX_PATH)
     Call hysFolderer.Migrater(TARGET_PATH, IMPORT_EXCLUSION_PATH, IMPORT_EXCLUSION_LIST)
@@ -72,16 +74,6 @@ Sub Main(folder)
     
 End Sub
 
-Function checkExclude(module As String, list) As Boolean
-    Dim i As Integer
-    For i = LBound(list) To UBound(list)
-        If module = list(i) Then
-            checkExclude = True
-            Exit Function
-        End If
-    Next
-    checkExclude = False
-End Function
 
 'Function checkBasExist(bas As String) As Boolean
 Function checkBasExist(ByVal bas As String) As Boolean
