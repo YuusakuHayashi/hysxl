@@ -24,7 +24,7 @@ Sub Main()
     
     For Each f In fs
         mn = f.Name
-        mbn = fso.getBaseName(mn)
+'        mbn = fso.getBaseName(mn)
         imp_cnt = imp_cnt + 1
         ThisWorkbook.VBProject.VBComponents.IMPORT IMPORT_RESERVATION_PATH & "\" & mn
         imp_cnt = imp_cnt + 1

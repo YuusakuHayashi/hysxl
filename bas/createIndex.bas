@@ -1,5 +1,7 @@
-Attribute VB_Name = "mod_createIndex"
+Attribute VB_Name = "createIndex"
 Option Explicit
+
+Const CONFIGURATION = "\\Coral\個人情報-林祐\createIndex\config"
 
 Function checkSheetName()
 
@@ -25,12 +27,12 @@ Function getConfig() As Variant()    '設定ファイルを読み込む関数
     Dim fso, fd, fs, f, ts As Object
     Dim l(4) As Variant
     
-    ChDir ThisWorkbook.PATH
-    ChDrive ThisWorkbook.PATH
+    'ChDir ThisWorkbook.Path
+    'ChDrive ThisWorkbook.Path
     
     Set fso = CreateObject("Scripting.filesystemObject")
     
-    Set f = fso.GetFile("createIndex\config")
+    Set f = fso.GetFile(CONFIGURATION)
     Set ts = f.OpenAsTextStream(1, -2)
     
     With ts

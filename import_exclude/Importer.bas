@@ -54,12 +54,15 @@ Sub Main(folder)
             rem_cnt = rem_cnt + 1
             If checkBasExist(mbn) Then
                 Call hysFolderer.Migrater(TARGET_PATH, IMPORT_RESERVATION_PATH, Array(mn))
+                Call hysDebugger.Logger("This Module is Reserved = " & mbn)
             Else
                 ThisWorkbook.VBProject.VBComponents.IMPORT TARGET_PATH & "\" & mn
+                Call hysDebugger.Logger("This Module is Removed & Imported = " & mbn)
                 imp_cnt = imp_cnt + 1
             End If
         Else
             ThisWorkbook.VBProject.VBComponents.IMPORT TARGET_PATH & "\" & mn
+            Call hysDebugger.Logger("This Module is Imported = " & mbn)
             imp_cnt = imp_cnt + 1
         End If
     Next
