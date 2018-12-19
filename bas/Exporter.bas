@@ -3,12 +3,10 @@ Option Explicit
 Dim TARGET_PATH As String
 Dim EXPORT_EXCLUSION_PATH As String
 Dim EXPORT_EXCLUSION_LIST As Variant
-Dim THIS_MODULE_PATH As String
 
 Sub Bundler()
-    THIS_MODULE_PATH = "C:\Users\yuusaku.hayashi\dev\excelVBA\importBas"
-    TARGET_PATH = THIS_MODULE_PATH & "\bas"
-    EXPORT_EXCLUSION_PATH = THIS_MODULE_PATH & "\export_exclude"
+    TARGET_PATH = ThisWorkbook.PATH & "\bas"
+    EXPORT_EXCLUSION_PATH = ThisWorkbook.PATH & "\export_exclude"
     EXPORT_EXCLUSION_LIST = Array()
     Call Main(TARGET_PATH, EXPORT_EXCLUSION_LIST)
 End Sub
@@ -37,3 +35,14 @@ Sub Main(folder, ex)
     Call hysDebugger.Logger("export = ", exp_cnt)
     Call hysDebugger.Logger("exporter end")
 End Sub
+
+Function checkExclude(module As String, list) As Boolean
+    Dim i As Integer
+    For i = LBound(list) To UBound(list)
+        If module = list(i) Then
+            checkExclude = True
+            Exit Function
+        End If
+    Next
+    checkExclude = False
+End Function
