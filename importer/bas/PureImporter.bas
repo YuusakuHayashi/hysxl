@@ -1,5 +1,6 @@
 Attribute VB_Name = "PureImporter"
 Option Explicit
+Private Declare Sub Sleep Lib "kernel32" (ByVal dwMilliseconds As Long)
 Dim IMPORT_RESERVATION_PATH As String
 Dim MODULE_PATH As String
 
@@ -26,6 +27,7 @@ Sub Main()
         mn = f.Name
         imp_cnt = imp_cnt + 1
         ThisWorkbook.VBProject.VBComponents.IMPORT IMPORT_RESERVATION_PATH & "\" & mn
+        Sleep 200
         imp_cnt = imp_cnt + 1
     Next
     

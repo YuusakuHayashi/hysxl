@@ -1,12 +1,12 @@
 Attribute VB_Name = "PureImporter"
 Option Explicit
-Dim IMPORT_RESERVATION_PATH
-Dim THIS_MODULE_PATH As String
+Dim IMPORT_RESERVATION_PATH As String
+Dim MODULE_PATH As String
 
 Sub Main()
     
-    THIS_MODULE_PATH = "C:\Users\yuusaku.hayashi\dev\excelVBA\importBas"
-    IMPORT_RESERVATION_PATH = THIS_MODULE_PATH & "\reserved"
+    MODULE_PATH = ThisWorkbook.PATH & "\reserved"
+    IMPORT_RESERVATION_PATH = MODULE_PATH
     
     Dim fso As Object
     Dim fs As Object
@@ -24,9 +24,8 @@ Sub Main()
     
     For Each f In fs
         mn = f.Name
-        mbn = fso.getBaseName(mn)
         imp_cnt = imp_cnt + 1
-        ThisWorkbook.VBProject.VBComponents.Import IMPORT_RESERVATION_PATH & "\" & mn
+        ThisWorkbook.VBProject.VBComponents.IMPORT IMPORT_RESERVATION_PATH & "\" & mn
         imp_cnt = imp_cnt + 1
     Next
     

@@ -1,6 +1,29 @@
 Attribute VB_Name = "hysStr"
 Option Explicit
 
+Function RemoveElement(el, list() As String)
+    '•¡”—v‘f‚É‚à‘Î‰‚³‚¹‚½‚¢‚ªA¡‰ñ‚Í•Û—¯
+    Dim i As Integer
+    Dim flg As Boolean: flg = False
+    
+    Select Case TypeName(el)
+        Case "String"
+    End Select
+
+    For i = el To UBound(list) - 1
+        'If list(i) = list(el) Then
+            list(i) = list(i + 1)
+            'flg = True
+        'End If
+    Next
+    
+    If flg Then
+        ReDim Preserve list(UBound(list) - 1)
+    End If
+    RemoveElement = list
+    
+End Function
+
 
 Function zeroPadding(str As String, lng As Integer) As String
     Dim s As Integer
@@ -35,6 +58,3 @@ Function cutRight(str As String, lng As Integer) As String
     End If
     cutRight = str
 End Function
-<!--stackedit_data:
-eyJoaXN0b3J5IjpbMTgzNTI2Mzk1Nl19
--->

@@ -1,5 +1,6 @@
 Attribute VB_Name = "hysFolderer"
 Option Explicit
+Private Declare Sub Sleep Lib "kernel32" (ByVal dwMilliseconds As Long)
 
 Function convertFilesToStrs(fs) As String()
     
@@ -33,14 +34,19 @@ Sub Migrater(from_folder, to_folder, Optional ex_list = "")
         For i = LBound(ex_list) To UBound(ex_list)
             If fso.FileExists(from_folder & "\" & ex_list(i)) Then
                 fso.CopyFile from_folder & "\" & ex_list(i), to_folder & "\" & ex_list(i)
+                Sleep 200
                 fso.DeleteFile from_folder & "\" & ex_list(i), True
+                Sleep 200
             End If
         Next
     Else
         If fso.FolderExists(from_folder) Then
             fso.CopyFolder from_folder, to_folder
+            Sleep 200
             fso.DeleteFolder from_folder
+            Sleep 200
             fso.CreateFolder from_folder
+            Sleep 200
         End If
     End If
     
