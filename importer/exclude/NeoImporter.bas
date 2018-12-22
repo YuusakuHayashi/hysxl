@@ -16,28 +16,24 @@ Sub Bundler()
 End Sub
 
 Sub Main()
-
     Dim fso As Object
     Dim fs As Object
     Dim f As Object
-    
     Set fso = CreateObject("Scripting.FileSystemObject")
     Set fs = fso.GetFolder(IMPORT_PATH).files
-    
     Dim i As Integer
     Dim mn As String
-    
+
     For Each f In fs
         mn = f.Name
-        If Not ExclusionCheck(mn) Then
+        mbn = fso.getBaseName(mn)
+        If Not ExclusionCheck(mbn) Then
             ThisWorkbook.VBProject.VBComponents.IMPORT IMPORT_PATH & "\" & mn
         End If
     Next
-    
     Set fso = Nothing
     Set fs = Nothing
     Set f = Nothing
-    
 End Sub
 
 Function ExclusionCheck(ModuleName As String) As Boolean

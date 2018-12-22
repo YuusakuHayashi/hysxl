@@ -4,22 +4,17 @@ Option Explicit
 Function RemoveElement(el, list() As String)
     '•¡”—v‘f‚É‚à‘Î‰‚³‚¹‚½‚¢‚ªA¡‰ñ‚Í•Û—¯
     Dim i As Integer
-    Dim flg As Boolean: flg = False
     
     Select Case TypeName(el)
         Case "String"
     End Select
 
     For i = el To UBound(list) - 1
-        'If list(i) = list(el) Then
-            list(i) = list(i + 1)
-            'flg = True
-        'End If
+        list(i) = list(i + 1)
     Next
     
-    If flg Then
-        ReDim Preserve list(UBound(list) - 1)
-    End If
+    ReDim Preserve list(UBound(list) - 1)
+
     RemoveElement = list
     
 End Function
