@@ -3,48 +3,49 @@ Option Explicit
 
 Dim EXPORT_PATH As String
 Dim MODULE_PATH As String
-Dim MODULE_LIST() As String
+Dim EXPORT_LIST() As String
 Dim EXCLUSION_LIST As Variant
+Dim IGNORE_FILE As String
 
 Sub Bundler()
     MODULE_PATH = ThisWorkbook.PATH & "\importer"
-    MODULE_LIST = hysVBComponenter.GetComponentList(1)
-    
     EXPORT_PATH = MODULE_PATH & "\exclude"
+    IGNORE_FILE = MODULE_PATH & "\.exportignore"
+    
+    EXPORT_LIST = hysVBComponenter.GetComponentList(1)
+    Call hysDebugger.PrintListItem(EXPORT_LIST)
+    
     EXCLUSION_LIST = Array("NeoImporter")
+    EXCLUSION_LIST = hysStr.AddElementsOfList(hysStr.GetListOfFileLines(IGNORE_FILE), EXCLUSION_LIST)
+    EXPORT_LIST = hysStr.ExcludeElementsOfList(EXCLUSION_LIST, EXPORT_LIST)
+    
+    Call hysDebugger.PrintListItem(EXPORT_LIST)
+    Debug.Print ""
+    Call hysDebugger.PrintListItem(EXCLUSION_LIST)
+    
     Call ExportReserve
     
     EXPORT_PATH = MODULE_PATH & "\bas"
-    MODULE_LIST = hysStr.RemoveElement(hysLister.GetIndexOfMember("NeoImporter", MODULE_LIST), MODULE_LIST)
     Call Main
 End Sub
 
 Sub ExportReserve()
     Dim i As Integer
+    On Error Resume Next
     For i = LBound(EXCLUSION_LIST) To UBound(EXCLUSION_LIST)
         ThisWorkbook.VBProject.VBComponents(EXCLUSION_LIST(i)).EXPORT EXPORT_PATH & "\" & EXCLUSION_LIST(i) & ".bas"
     Next
+    On Error GoTo 0
 End Sub
 
 Sub Main()
     Dim i As Integer: i = 1
     With ThisWorkbook.VBProject
-        'For i = LBound(MODULE_LIST) = 1 To UBound(MODULE_LIST)
-        For i = 1 To UBound(MODULE_LIST)    'リテラルだと気分が良くないので要修正
-            Debug.Print MODULE_LIST(i)
-            .VBComponents(MODULE_LIST(i)).EXPORT EXPORT_PATH & "\" & MODULE_LIST(i) & ".bas"
-            .VBComponents.Remove ThisWorkbook.VBProject.VBComponents(MODULE_LIST(i))
+        'For i = LBound(EXPORT_LIST) = 1 To UBound(EXPORT_LIST)
+        For i = LBound(EXPORT_LIST) To UBound(EXPORT_LIST)    'リテラルだと気分が良くないので要修正
+            Debug.Print EXPORT_LIST(i)
+            .VBComponents(EXPORT_LIST(i)).EXPORT EXPORT_PATH & "\" & EXPORT_LIST(i) & ".bas"
+            .VBComponents.Remove ThisWorkbook.VBProject.VBComponents(EXPORT_LIST(i))
         Next
     End With
 End Sub
-
-'Function ExclusionCheck(ModuleName As String) As Boolean
-'    Dim i As Integer
-'    For i = LBound(EXCLUSION_LIST) To UBound(EXCLUSION_LIST)
-'        If ModuleName = EXCLUSION_LIST(i) Then
-'            ExclusionCheck = True
-'            Exit Function
-'        End If
-'    Next
-'    ExclusionCheck = False
-'End Function

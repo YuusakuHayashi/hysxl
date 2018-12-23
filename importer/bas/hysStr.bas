@@ -1,6 +1,97 @@
 Attribute VB_Name = "hysStr"
 Option Explicit
 
+Function ExcludeElementsOfList(elements, list)
+
+    Dim i As Integer
+    Dim j As Integer
+    Dim idx As Integer: idx = 0
+    Dim flag As Boolean: flag = False
+    
+    For i = LBound(elements) To UBound(elements)
+        For j = LBound(list) To UBound(list)
+            If list(j) = elements(i) Then
+                idx = j
+                flag = True
+                Exit For
+            End If
+        Next
+        If flag Then
+            For j = idx To UBound(list) - 1
+                list(j) = list(j + 1)
+            Next
+            ReDim Preserve list(UBound(list) - 1)
+            flag = False
+        End If
+    Next
+    ExcludeElementsOfList = list
+End Function
+
+Function GetListOfFileLines(FileName)
+    '適当なので要修正
+    Dim fso As Object
+    Dim f As Object
+    Dim buf As String
+    Dim eol As Integer
+    Dim cnt As Integer
+    Dim lns
+    Dim i As Integer: i = 0
+    Dim j As Integer: j = 0
+    
+    Set fso = CreateObject("Scripting.FileSystemObject")
+    Set f = fso.OpenTextFile(FileName, 1)
+    buf = f.ReadAll
+    lns = Split(buf, vbCrLf)
+    GetListOfFileLines = lns
+    
+    f.Close
+    Set f = Nothing
+    Set fso = Nothing
+End Function
+
+Function AddElementsOfList(elements, list)
+
+    Dim el_cnt As Integer
+    Dim ls_cnt As Integer
+    Dim i As Integer: i = 0
+    Dim j As Integer: j = 0
+    
+    ls_cnt = UBound(list)
+    el_cnt = UBound(elements)
+    
+    ReDim Preserve list(ls_cnt + el_cnt)
+    
+    For i = ls_cnt + 1 To UBound(list)
+        list(i) = elements(j)
+        j = j + 1
+    Next
+    
+    AddElementsOfList = list
+    
+End Function
+
+Function GetFileListOfFolder(Folder)
+    Dim fso As Object
+    Dim fs As Object
+    Dim f As Object
+    Dim i As Integer: i = 0
+    Dim cnt As Integer
+    
+    Set fso = CreateObject("Scripting.FileSystemObject")
+    Set fs = fso.GetFolder(IMPORT_PATH).files
+
+    ReDim IMPORT_LIST(fs.Count - 1)
+    
+    For Each f In fs
+        IMPORT_LIST(i) = f.Name
+        i = i + 1
+    Next
+    
+    Set fso = Nothing
+    Set fs = Nothing
+    Set f = Nothing
+End Function
+
 Function RemoveElement(el, list() As String)
     '複数要素にも対応させたいが、今回は保留
     Dim i As Integer
