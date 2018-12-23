@@ -13,15 +13,10 @@ Sub Bundler()
     IGNORE_FILE = MODULE_PATH & "\.exportignore"
     
     EXPORT_LIST = hysVBComponenter.GetComponentList(1)
-    Call hysDebugger.PrintListItem(EXPORT_LIST)
     
     EXCLUSION_LIST = Array("NeoImporter")
     EXCLUSION_LIST = hysStr.AddElementsOfList(hysStr.GetListOfFileLines(IGNORE_FILE), EXCLUSION_LIST)
     EXPORT_LIST = hysStr.ExcludeElementsOfList(EXCLUSION_LIST, EXPORT_LIST)
-    
-    Call hysDebugger.PrintListItem(EXPORT_LIST)
-    Debug.Print ""
-    Call hysDebugger.PrintListItem(EXCLUSION_LIST)
     
     Call ExportReserve
     
@@ -43,7 +38,6 @@ Sub Main()
     With ThisWorkbook.VBProject
         'For i = LBound(EXPORT_LIST) = 1 To UBound(EXPORT_LIST)
         For i = LBound(EXPORT_LIST) To UBound(EXPORT_LIST)    'ÉäÉeÉâÉãÇæÇ∆ãCï™Ç™ó«Ç≠Ç»Ç¢ÇÃÇ≈óvèCê≥
-            Debug.Print EXPORT_LIST(i)
             .VBComponents(EXPORT_LIST(i)).EXPORT EXPORT_PATH & "\" & EXPORT_LIST(i) & ".bas"
             .VBComponents.Remove ThisWorkbook.VBProject.VBComponents(EXPORT_LIST(i))
         Next

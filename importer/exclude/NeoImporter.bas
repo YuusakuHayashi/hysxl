@@ -98,49 +98,9 @@ Sub GetImportList()
     Set f = Nothing
 End Sub
 
-'Sub AddExclusionList()
-'    ìKìñÇ»ÇÃÇ≈óvèCê≥
-'    Dim fso As Object
-'    Dim f As Object
-'    Dim buf As String
-'    Dim eol As Integer
-'    Dim cnt As Integer
-'    Dim lns
-'    Dim i As Integer: i = 0
-'    Dim j As Integer: j = 0
-'    Set fso = CreateObject("Scripting.FileSystemObject")
-'    Set f = fso.OpenTextFile(IGNORE_FILE, 1)
-'    buf = f.ReadAll
-'    lns = Split(buf, vbCrLf)
-'    eol = UBound(lns)
-'
-'    cnt = UBound(EXCLUSION_LIST)
-'    ReDim Preserve EXCLUSION_LIST(cnt + eol)
-'
-'    For i = cnt + 1 To UBound(EXCLUSION_LIST)
-'        EXCLUSION_LIST(i) = lns(j)
-'        j = j + 1
-'    Next
-'
-'    f.Close
-'    Set f = Nothing
-'    Set fso = Nothing
-'End Sub
-
 Sub Main()
     Dim i As Integer
     For i = LBound(IMPORT_LIST) To UBound(IMPORT_LIST)
         ThisWorkbook.VBProject.VBComponents.IMPORT IMPORT_PATH & "\" & IMPORT_LIST(i)
     Next
 End Sub
-
-'Function ExclusionCheck(ModuleName As String) As Boolean
-'    Dim i As Integer
-'    For i = LBound(EXCLUSION_LIST) To UBound(EXCLUSION_LIST)
-'        If ModuleName = EXCLUSION_LIST(i) Then
-'            ExclusionCheck = True
-'            Exit Function
-'        End If
-'    Next
-'    ExclusionCheck = False
-'End Function
