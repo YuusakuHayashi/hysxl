@@ -2,7 +2,7 @@ Attribute VB_Name = "createChart"
 Option Explicit
 
 Sub Main(tgt, dn, dt, dc, dv)
-'--------------------------------------------------------------------------------------------------------------------
+'{{{
 initializing:
     Application.EnableEvents = False
     
@@ -20,7 +20,6 @@ initializing:
             .EntireRow.AutoFit
         End With
         
-'--------------------------------------------------------------------------------------------------------------------
 FILLER_TREATMENT:
         Dim nolabel As Boolean
         Dim dn_digit() As String
@@ -37,7 +36,6 @@ FILLER_TREATMENT:
         Else
             creationrange.Font.Color = RGB(0, 0, 0)
         End If
-'--------------------------------------------------------------------------------------------------------------------
 SOKEOK_TREATMENT:
         If dn = "sok" _
         Or dn = "SOK" _
@@ -49,7 +47,6 @@ SOKEOK_TREATMENT:
         Else
             creationrange.Font.Color = RGB(0, 0, 0)
         End If
-'--------------------------------------------------------------------------------------------------------------------
 KANJI_TREATEMENT:
         For i = 1 To Len(dn)
             If (Asc(Mid(dn, i, 1)) >= 65 And Asc(Mid(dn, i, 1)) <= 90) Or _
@@ -59,7 +56,6 @@ KANJI_TREATEMENT:
                 dn_digit(i) = Mid(dn, i, 1)
             End If
         Next
-'--------------------------------------------------------------------------------------------------------------------
 CREATE_DIGIT:
         If dt = "9" Then
             creationrange.Value = "9"
@@ -81,7 +77,6 @@ CREATE_DIGIT:
         If nolabel = True Then
             GoTo CLOSING
         End If
-'--------------------------------------------------------------------------------------------------------------------
 CREATE_LABEL:
 
         With creationrange.Offset(1)
@@ -93,10 +88,9 @@ CREATE_LABEL:
                 .Weight = xlMedium
             End With
         End With
-'--------------------------------------------------------------------------------------------------------------------
 CLOSING:
     Application.EnableEvents = True
-'--------------------------------------------------------------------------------------------------------------------
+'}}}
 End Sub
 
 Function checkString(tgt) As Variant()

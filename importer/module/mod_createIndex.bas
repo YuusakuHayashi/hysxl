@@ -25,8 +25,8 @@ Function getConfig() As Variant()    'İ’èƒtƒ@ƒCƒ‹‚ğ“Ç‚İ‚ŞŠÖ”
     Dim fso, fd, fs, f, ts As Object
     Dim l(4) As Variant
     
-    ChDir ThisWorkbook.PATH
-    ChDrive ThisWorkbook.PATH
+    ChDir ThisWorkbook.path
+    ChDrive ThisWorkbook.path
     
     Set fso = CreateObject("Scripting.filesystemObject")
     

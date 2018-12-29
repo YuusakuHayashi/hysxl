@@ -1,7 +1,7 @@
 Attribute VB_Name = "mod_executeShell"
 Option Explicit
 
-Sub execApp(PATH As String)
+Sub execApp(path As String)
     'Dim obj
     'Set obj = CreateObject('WScript.Shell')
 
@@ -9,7 +9,7 @@ Sub execApp(PATH As String)
     Set obj = New IWshRuntimeLibrary.WshShell
     Dim r As Long
 
-    r = obj.Run(PATH, 1, False)
+    r = obj.Run(path, 1, False)
 
 
 End Sub
