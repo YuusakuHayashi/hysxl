@@ -1,5 +1,4 @@
 Attribute VB_Name = "main"
-Option Explicit
 
 Dim row As Integer              '-- セル行
 Dim col As Integer              '-- セル列
@@ -7,10 +6,10 @@ Dim root As String              '-- ルートディレクトリ
 Const col_desc As Integer = 3   '-- 説明列(get_index())
 Const col_kind As Integer = 2   '-- ファイル/フォルダ種類列(get_index())
 
-Sub test()
+Sub test(d)
     row = 2
     col = 1
-    Call get_index("")
+    Call get_index(d)
 End Sub
 
 Sub get_index(ByVal r As String)
@@ -55,7 +54,7 @@ End Sub
 Sub get_index_re(ByRef foc As Object)
 
     Dim o As Object     '-- コレクションからイテレーションの格納用obj
-    Dim f As Object     '-- objを参照用file obj
+    Dim fo As Object    '-- objを参照用folder obj
     Dim bef As String   '-- 既に入力したあった値を格納
     Dim p As String     '-- ルートパス文字列(省略用)
     

@@ -3,3 +3,6 @@
 *.xls
 dustbox
 reserved
+main/*
+!main/Main.xaml
+env.json
