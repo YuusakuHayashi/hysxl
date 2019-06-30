@@ -6,3 +6,4 @@ reserved
 main/*
 !main/Main.xaml
 env.json
+*.swp
