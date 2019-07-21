@@ -1,0 +1,29 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>test</title>
+	</head>
+	<body id="main">
+		<button id="mybtn">click</button>
+		<script>
+			document.addEventListener("DOMContentLoaded", () => {
+				const mybtn = document.getElementById("mybtn");
+				const main  = document.getElementById("main");
+				let i=0;
+				mybtn.addEventListener("click", () => {
+					const parg = document.createElement("p");
+					parg.setAttribute("id","parg" + i);
+					parg.textContent = "hello" + i;
+					main.appendChild(parg);
+					i++;
+				},false);
+				var target = {};
+				var p = new Proxy(target, {});
+				p.a = 37; 
+					// 操作はプロキシへ転送されます
+				console.log(target.a); 
+					/ 3 が出力されます。操作は正しく転送されました
+			},false);
+		</script>
+	</body>
+</html>
